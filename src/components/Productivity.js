@@ -1,15 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Todos from './Todos';
 
+function Productivity() {
+    const [todo, setTodo] = useState('');
+    const [todos, setTodos] = useState([]);
 
-function Productivity(){
-    return(
+    const updateInput = (input) => {
+        setTodo(input);
+    };
+
+    return (
         <div className="Productivity">
-            <form>
-                <input type="text" placeholder="Add Item..."/>
+            <form onSubmit={() => console.log('submitted')}>
+                <input
+                    type="text"
+                    placeholder="Add Item..."
+                    value={todo}
+                    onChange={(e) => updateInput(e.target.value)}
+                />
                 <button>Enter</button>
             </form>
+            <Todos todos={todos} />
         </div>
-    )
+    );
 }
 
 export default Productivity;

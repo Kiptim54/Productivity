@@ -3,6 +3,7 @@
           box-sizing: border-box;
   margin: 0;
   padding: 0;
+  background: black;
 }
 
 body {
@@ -20,25 +21,28 @@ nav ul {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-nav ul li {
-  list-style: none;
-  padding: 2%;
-}
-
-nav ul li.nav-title {
-  font-size: 2rem;
-}
-
-nav ul li:nth-child(2) {
-  margin-left: auto;
-}
-
-nav ul li a {
+nav ul a {
+  padding: 1rem;
   text-decoration: none;
   color: orange;
   font-weight: bold;
+}
+
+nav ul a.nav-title {
+  font-size: 2rem;
+}
+
+nav ul a:nth-child(2) {
+  margin-left: auto;
 }
 
 .Productivity form {
@@ -50,8 +54,10 @@ nav ul li a {
 
 .Productivity form input {
   padding: .5rem;
-  min-width: 60%;
+  min-width: 50%;
   border-radius: 5px;
+  background: white;
+  border: 0;
 }
 
 .Productivity form button {

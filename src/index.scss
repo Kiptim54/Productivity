@@ -2,7 +2,7 @@
     box-sizing: border-box;
     margin:0;
     padding: 0;
-    // background:black;
+    background:black;
   }
   
   body {
@@ -22,10 +22,14 @@
     // padding:1rem;
     ul{
         display:flex;
+        flex-flow: row wrap;
+        align-items: center;
 
-        li{
-            list-style: none;
-            padding:2%;
+        a{
+            padding:1rem;
+            text-decoration: none;
+            color:orange;
+            font-weight: bold;
 
             &.nav-title{
                 font-size:2rem;
@@ -33,12 +37,6 @@
 
             &:nth-child(2){
                 margin-left:auto;
-            }
-            
-            a{
-                text-decoration: none;
-                color:orange;
-                font-weight: bold;
             }
         }
     }
@@ -52,8 +50,10 @@
           text-align: center;
           input{
               padding:.5rem;
-              min-width:60%;
+              min-width:50%;
               border-radius: 5px;
+              background:white;
+              border:0;
           }
           button{
               background:orange;
