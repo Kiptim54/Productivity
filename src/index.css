@@ -69,4 +69,8 @@ nav ul a:nth-child(2) {
   border-radius: 5px;
   min-height: 30px;
 }
+
+.Todos .todosList li {
+  color: white;
+}
 /*# sourceMappingURL=index.css.map */

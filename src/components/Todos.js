@@ -1,19 +1,29 @@
 import React from 'react';
 
 function Todos(props) {
-    const {todos} = props;
-    console.log(todos)
+    const { todos } = props;
 
     const displayTodos = (todos) => {
-        todos.map((todos, index) => {
-            return <li key={index}></li>;
+        console.log('this is a list of all the todos', todos);
+        props.todos.map((todo, index) => {
+            return <li key={index}>{todo}</li>;
         });
     };
-    return <div className="Todos">
-        {todos.length >=1 ? displayTodos:
-         <h3 style={{color:'orange', textAlign:'center',}}>No todos...</h3>}
-        
-        </div>;
+    return (
+        <div className="Todos">
+            {todos.length >= 1 ? (
+                <ul class="todosList">
+                    {props.todos.map((todo) => (
+                        <li key={todo}>{todo}</li>
+                    ))}
+                </ul>
+            ) : (
+                <h3 style={{ color: 'orange', textAlign: 'center' }}>
+                    No todos...
+                </h3>
+            )}
+        </div>
+    );
 }
 
 export default Todos;

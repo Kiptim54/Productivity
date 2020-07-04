@@ -9,9 +9,16 @@ function Productivity() {
         setTodo(input);
     };
 
+    const formSubmitted = (e)=>{
+        e.preventDefault();
+        const newtodos = [...todos, todo]
+        console.log(newtodos)
+        setTodos(newtodos)
+    }
+
     return (
         <div className="Productivity">
-            <form onSubmit={() => console.log('submitted')}>
+            <form onSubmit={(e)=>formSubmitted(e)}>
                 <input
                     type="text"
                     placeholder="Add Item..."
