@@ -1,0 +1,68 @@
+*, *::after, *::before{
+    box-sizing: border-box;
+    margin:0;
+    padding: 0;
+    // background:black;
+  }
+  
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',monospace;
+  }
+  
+  nav{
+    // padding:1rem;
+    ul{
+        display:flex;
+
+        li{
+            list-style: none;
+            padding:2%;
+
+            &.nav-title{
+                font-size:2rem;
+            }
+
+            &:nth-child(2){
+                margin-left:auto;
+            }
+            
+            a{
+                text-decoration: none;
+                color:orange;
+                font-weight: bold;
+            }
+        }
+    }
+  }
+
+  .Productivity{
+      form{
+          width:80%;
+          margin:auto;
+          padding:2%;
+          text-align: center;
+          input{
+              padding:.5rem;
+              min-width:60%;
+              border-radius: 5px;
+          }
+          button{
+              background:orange;
+              min-width: 100px;
+              padding:.3rem;
+              margin:1%;
+              border:0;
+              border-radius: 5px;
+              min-height: 30px;
+          }
+      }
+  }

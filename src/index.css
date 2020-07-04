@@ -1,13 +1,66 @@
+*, *::after, *::before {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',monospace;
 }
+
+nav ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+nav ul li {
+  list-style: none;
+  padding: 2%;
+}
+
+nav ul li.nav-title {
+  font-size: 2rem;
+}
+
+nav ul li:nth-child(2) {
+  margin-left: auto;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: orange;
+  font-weight: bold;
+}
+
+.Productivity form {
+  width: 80%;
+  margin: auto;
+  padding: 2%;
+  text-align: center;
+}
+
+.Productivity form input {
+  padding: .5rem;
+  min-width: 60%;
+  border-radius: 5px;
+}
+
+.Productivity form button {
+  background: orange;
+  min-width: 100px;
+  padding: .3rem;
+  margin: 1%;
+  border: 0;
+  border-radius: 5px;
+  min-height: 30px;
+}
+/*# sourceMappingURL=index.css.map */
