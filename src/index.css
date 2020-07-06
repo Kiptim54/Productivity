@@ -1,9 +1,10 @@
-*, *::after, *::before {
+*,
+*::after,
+*::before {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   margin: 0;
   padding: 0;
-  background: black;
 }
 
 body {
@@ -11,10 +12,22 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: black;
+}
+
+.App {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+  min-height: 100vh;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 nav ul {
@@ -33,7 +46,7 @@ nav ul {
 nav ul a {
   padding: 1rem;
   text-decoration: none;
-  color: orange;
+  color: #eb5e28;
   font-weight: bold;
 }
 
@@ -53,24 +66,69 @@ nav ul a:nth-child(2) {
 }
 
 .Productivity form input {
-  padding: .5rem;
+  padding: 1rem;
   min-width: 50%;
   border-radius: 5px;
-  background: white;
+  background: #fffcf2;
   border: 0;
 }
 
 .Productivity form button {
-  background: orange;
-  min-width: 100px;
-  padding: .3rem;
+  background: #eb5e28;
+  min-width: 150px;
+  padding: .8rem;
   margin: 1%;
   border: 0;
   border-radius: 5px;
   min-height: 30px;
 }
 
-.Todos .todosList li {
-  color: white;
+.Todos .todosList .todoItem {
+  max-width: 60vw;
+  background: #fffcf2;
+  color: #252422;
+  margin: auto;
+  border-radius: 5px;
+  margin-bottom: 2%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: .5rem;
+}
+
+.Todos .todosList .todoItem li {
+  color: #252422;
+  padding: 1rem;
+  list-style: none;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 80%;
+          flex: 0 1 80%;
+}
+
+.Todos .todosList .todoItem .control-icons {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 20%;
+          flex: 0 1 20%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.Todos .todosList .todoItem .control-icons img {
+  margin-left: 1rem;
+}
+
+.Footer {
+  background: #403d39;
+  margin-top: auto;
+  padding: 1rem;
+  text-align: center;
+  color: #fffcf2;
 }
 /*# sourceMappingURL=index.css.map */
