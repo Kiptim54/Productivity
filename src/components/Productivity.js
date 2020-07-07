@@ -12,10 +12,15 @@ function Productivity() {
     const formSubmitted = (e) => {
         e.preventDefault();
         const newtodos = [...todos, todo];
-        console.log(newtodos);
         setTodos(newtodos);
         setTodo('');
     };
+
+    function deleteTodo(index) {
+        const NewTodo = [...todos];
+        const filteredTodo = NewTodo.filter((todoItem, i) => {return i !== index })
+        setTodos(filteredTodo)
+    }
 
     return (
         <div className="Productivity">
@@ -29,7 +34,7 @@ function Productivity() {
                 />
                 <button>Enter</button>
             </form>
-            <Todos todos={todos} />
+            <Todos todos={todos} deleteTodo={deleteTodo} />
         </div>
     );
 }
