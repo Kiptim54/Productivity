@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import Todos from './Todos';
+import { v4 as uuidv4 } from 'uuid';
+import CompleteTodos from './CompletedTodos';
 
 function Productivity() {
     const [todo, setTodo] = useState('');
     const [todos, setTodos] = useState([]);
+    const [completedTodos, setCompleteTodo] = useState([]);
 
     const updateInput = (input) => {
         setTodo(input);
@@ -11,17 +14,60 @@ function Productivity() {
 
     const formSubmitted = (e) => {
         e.preventDefault();
-        const newtodos = [...todos, todo];
-        setTodos(newtodos);
+        let id = uuidv4();
+        let newTodo = {
+            id,
+            name: todo,
+            // TODO:  find a better way to represent todo status
+            status: 'new',
+        };
+        const newTodos = [...todos, newTodo];
         setTodo('');
+        setTodos(newTodos);
     };
 
-    function deleteTodo(index) {
+    function deleteTodo(id) {
         const NewTodo = [...todos];
-        const filteredTodo = NewTodo.filter((todoItem, i) => {return i !== index })
-        setTodos(filteredTodo)
+        const filteredTodo = NewTodo.filter((todoItem) => {
+            return todoItem.id !== id;
+        });
+        setTodos(filteredTodo);
     }
 
+    function addCompleteTodo(id) {
+        // 1. move item to the completed array: completedTodos
+        const item = todos.find((todoItem) => todoItem.id === id);
+        item.status = 'complete';
+        const newCompleteTodo = [...completedTodos, item];
+        setCompleteTodo(newCompleteTodo);
+
+        // 2. delete it from the current todo list: todos
+        deleteTodo(id);
+    }
+
+    function deleteCompleteTodo(id) {
+        const completeTodosCopy = [...completedTodos];
+        const filteredList = completeTodosCopy.filter((todo) => todo.id !== id);
+        setCompleteTodo(filteredList);
+    }
+
+    function redoCompletedTodo(id) {
+        // find the selected todo in the completed todo list and move it to the active todo section
+        const seletedTodo = completedTodos.find((todo) => todo.id === id);
+        seletedTodo.status = 'new';
+        setTodos([...todos, seletedTodo]);
+
+        // remove from the completed todo list
+        deleteCompleteTodo(id);
+    }
+
+    function pauseTodos(id){
+        console.log("pause active todos")
+        const selectedTodo = todos.find(todo=> todo.id == id)
+        selectedTodo.status = 'paused'
+        const filterTodos = todos.filter(todo=>todo.id !== id)
+        setTodos([...filterTodos, selectedTodo])
+    }
     return (
         <div className="Productivity">
             <form onSubmit={(e) => formSubmitted(e)}>
@@ -34,7 +80,17 @@ function Productivity() {
                 />
                 <button>Enter</button>
             </form>
-            <Todos todos={todos} deleteTodo={deleteTodo} />
+            <Todos
+                todos={todos}
+                deleteTodo={deleteTodo}
+                addCompleteTodo={addCompleteTodo}
+                pauseTodos={pauseTodos}
+            />
+            <CompleteTodos
+                completedTodos={completedTodos}
+                deleteCompleteTodo={deleteCompleteTodo}
+                redoCompletedTodo={redoCompletedTodo}
+            />
         </div>
     );
 }

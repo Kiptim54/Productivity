@@ -1,13 +1,13 @@
 import React from 'react';
 
 function Footer() {
-    return(
+    const date = new Date()
+    return (
         <div className="Footer">
             <h4>Productivity Inc</h4>
-            <sub>2020</sub>
+            <sub>{date.getFullYear()}</sub>
         </div>
-    )
-
+    );
 }
 
 export default Footer;

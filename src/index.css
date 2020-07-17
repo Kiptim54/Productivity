@@ -30,6 +30,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
+.errorMessage {
+  color: #fffcf2;
+  text-align: center;
+  padding: 1rem;
+}
+
 nav ul {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -76,7 +82,7 @@ nav ul a:nth-child(2) {
 .Productivity form button {
   background: #eb5e28;
   min-width: 150px;
-  padding: .8rem;
+  padding: 0.8rem;
   margin: 1%;
   border: 0;
   border-radius: 5px;
@@ -96,7 +102,7 @@ nav ul a:nth-child(2) {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
 .Todos .todosList .todoItem li {
@@ -123,6 +129,65 @@ nav ul a:nth-child(2) {
 .Todos .todosList .todoItem .control-icons img {
   margin-left: 1rem;
   cursor: pointer;
+}
+
+.Todos .todosList .paused {
+  background: orange;
+  color: white;
+}
+
+.CompleteTodos {
+  color: #fffcf2;
+}
+
+.CompleteTodos .completedList .todoItem {
+  max-width: 60vw;
+  background: #ccc5b9;
+  color: #403d39;
+  margin: auto;
+  border-radius: 5px;
+  margin-bottom: 2%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0.5rem;
+}
+
+.CompleteTodos .completedList .todoItem_new {
+  background: pink;
+}
+
+.CompleteTodos .completedList .todoItem li {
+  color: #252422;
+  padding: 1rem;
+  list-style: none;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 80%;
+          flex: 0 1 80%;
+}
+
+.CompleteTodos .completedList .todoItem .control-icons {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 20%;
+          flex: 0 1 20%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.CompleteTodos .completedList .todoItem .control-icons img {
+  margin-left: 1rem;
+  cursor: pointer;
+}
+
+.CompleteTodos .completedList .complete {
+  background: #4bb543;
 }
 
 .Footer {
