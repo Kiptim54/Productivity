@@ -4,8 +4,8 @@ $primary-300: #403d39;
 $primary-400: #ccc5b9;
 $primary-500: #fffcf2;
 $success: #4bb543;
-$warning: #F99245;
-$warning: #BD1919;
+$warning: #f99245;
+$warning: #bd1919;
 
 *,
 *::after,
@@ -37,6 +37,10 @@ code {
     color: $primary-500;
     text-align: center;
     padding: 1rem;
+}
+
+.hide {
+    display: none;
 }
 
 nav {
@@ -111,15 +115,15 @@ nav {
                 display: flex;
                 justify-content: flex-end;
 
-                img {
+                svg {
                     margin-left: 1rem;
                     cursor: pointer;
                 }
             }
         }
-        .paused{
+        .paused {
             background: orange;
-            color:white;
+            color: white;
         }
     }
 }
@@ -150,7 +154,7 @@ nav {
                 display: flex;
                 justify-content: flex-end;
 
-                img {
+                svg {
                     margin-left: 1rem;
                     cursor: pointer;
                 }

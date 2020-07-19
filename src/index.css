@@ -36,6 +36,10 @@ code {
   padding: 1rem;
 }
 
+.hide {
+  display: none;
+}
+
 nav ul {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -126,7 +130,7 @@ nav ul a:nth-child(2) {
           justify-content: flex-end;
 }
 
-.Todos .todosList .todoItem .control-icons img {
+.Todos .todosList .todoItem .control-icons svg {
   margin-left: 1rem;
   cursor: pointer;
 }
@@ -181,7 +185,7 @@ nav ul a:nth-child(2) {
           justify-content: flex-end;
 }
 
-.CompleteTodos .completedList .todoItem .control-icons img {
+.CompleteTodos .completedList .todoItem .control-icons svg {
   margin-left: 1rem;
   cursor: pointer;
 }

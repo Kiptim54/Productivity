@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Todos from './Todos';
 import { v4 as uuidv4 } from 'uuid';
 import CompleteTodos from './CompletedTodos';
+import UseLocalStorage from './UserLocalStorage';
 
 function Productivity() {
     const [todo, setTodo] = useState('');
     const [todos, setTodos] = useState([]);
     const [completedTodos, setCompleteTodo] = useState([]);
+
+    // useEffect(()=>{
+    //     console.log("the useEffect hook has been called")
+    // })
 
     const updateInput = (input) => {
         setTodo(input);
@@ -61,12 +66,18 @@ function Productivity() {
         deleteCompleteTodo(id);
     }
 
-    function pauseTodos(id){
-        console.log("pause active todos")
-        const selectedTodo = todos.find(todo=> todo.id == id)
-        selectedTodo.status = 'paused'
-        const filterTodos = todos.filter(todo=>todo.id !== id)
-        setTodos([...filterTodos, selectedTodo])
+    function pauseTodos(id) {
+        const selectedTodo = todos.find((todo) => todo.id == id);
+        selectedTodo.status = 'paused';
+        const filterTodos = todos.filter((todo) => todo.id !== id);
+        setTodos([...filterTodos, selectedTodo]);
+    }
+
+    function unpauseTodos(id) {
+        const selectedTodo = todos.find((todo) => todo.id == id);
+        selectedTodo.status = 'new';
+        const filterTodos = todos.filter((todo) => todo.id !== id);
+        setTodos([...filterTodos, selectedTodo]);
     }
     return (
         <div className="Productivity">
@@ -85,6 +96,7 @@ function Productivity() {
                 deleteTodo={deleteTodo}
                 addCompleteTodo={addCompleteTodo}
                 pauseTodos={pauseTodos}
+                unpauseTodos = {unpauseTodos}
             />
             <CompleteTodos
                 completedTodos={completedTodos}
