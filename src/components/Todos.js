@@ -10,6 +10,7 @@ function Todos(props) {
         addCompleteTodo,
         pauseTodos,
         unpauseTodos,
+        updateTodo
     } = props;
 
     // const displayTodos = (todos) => {
@@ -28,7 +29,8 @@ function Todos(props) {
                                 key={todo.id}
                                 className={`todoItem ${todo.status}`}
                             >
-                                <li>{todo.name}</li>
+                                <input type="text" value={todo.name} onChange={(e)=>updateTodo(e, todo.id)}/>
+                                {/* <li>{todo.name}</li> */}
                                 <span className="control-icons">
                                     <MdDoneAll
                                         onClick={() => addCompleteTodo(todo.id)}
@@ -64,7 +66,7 @@ function Todos(props) {
                     })}
                 </ul>
             ) : (
-                <h3
+                <h5
                     style={{
                         color: '#eb5e28',
                         textAlign: 'center',
@@ -72,7 +74,7 @@ function Todos(props) {
                     }}
                 >
                     No active todos...
-                </h3>
+                </h5>
             )}
         </div>
     );

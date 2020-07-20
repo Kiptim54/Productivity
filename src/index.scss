@@ -1,3 +1,5 @@
+@import '../node_modules/bootstrap/scss/bootstrap';
+
 $primary-100: #eb5e28;
 $primary-200: #252422;
 $primary-300: #403d39;
@@ -22,7 +24,8 @@ body {
         'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background: black;
+    background: wheat;
+    font-size: 16px;
 }
 .App {
     display: flex;
@@ -63,6 +66,10 @@ nav {
             &:nth-child(2) {
                 margin-left: auto;
             }
+            &:hover{
+                color:$primary-100;
+                text-decoration: none;
+            }
         }
     }
 }
@@ -74,7 +81,7 @@ nav {
         padding: 2%;
         text-align: center;
         input {
-            padding: 1rem;
+            padding: 0.5rem;
             min-width: 50%;
             border-radius: 5px;
             background: $primary-500;
@@ -90,6 +97,11 @@ nav {
             min-height: 30px;
         }
     }
+    .progressBar{
+        max-width:40%;
+        margin:auto;
+        margin-bottom:1rem;
+    }
 }
 
 .Todos {
@@ -104,11 +116,20 @@ nav {
             display: flex;
             align-items: center;
             padding: 0.5rem;
-            li {
+            justify-content: space-between;
+            input {
                 color: $primary-200;
                 padding: 1rem;
                 list-style: none;
                 flex: 0 1 80%;
+                border: 0;
+                outline: none;
+                background: transparent;
+                &:focus {
+                    border: 0;
+                    outline: none;
+                    background: transparent;
+                }
             }
             .control-icons {
                 flex: 0 1 20%;
@@ -140,6 +161,7 @@ nav {
             display: flex;
             align-items: center;
             padding: 0.5rem;
+            justify-content: space-between;
             &_new {
                 background: pink;
             }
@@ -148,6 +170,7 @@ nav {
                 padding: 1rem;
                 list-style: none;
                 flex: 0 1 80%;
+                text-decoration: line-through;
             }
             .control-icons {
                 flex: 0 1 20%;

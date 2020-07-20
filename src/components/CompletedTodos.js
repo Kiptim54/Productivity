@@ -53,20 +53,6 @@ function CompleteTodos(props) {
                                     color="#BD1919"
                                     size="25"
                                 />
-                                {/* <img
-                                    src={require('../images/redo.svg')}
-                                    alt="redo"
-                                    width="25"
-                                    height="25"
-                                    onClick={()=>redoCompletedTodo(id)}
-                                /> */}
-                                {/* <img
-                                    src={require('../images/remove.svg')}
-                                    alt="remove"
-                                    width="25"
-                                    height="25"
-                                    onClick={() => deleteCompleteTodo(id)}
-                                /> */}
                             </span>
                         </div>
                     );

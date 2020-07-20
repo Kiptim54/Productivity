@@ -3,6 +3,7 @@ import Todos from './Todos';
 import { v4 as uuidv4 } from 'uuid';
 import CompleteTodos from './CompletedTodos';
 import UseLocalStorage from './UserLocalStorage';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
 function Productivity() {
     const [todo, setTodo] = useState('');
@@ -79,6 +80,22 @@ function Productivity() {
         const filterTodos = todos.filter((todo) => todo.id !== id);
         setTodos([...filterTodos, selectedTodo]);
     }
+
+    function updateTodo(e, id) {
+        // 1. create shallow copy of the array
+        const NewTodos = [...todos];
+
+        // 2 Find item in list and it's index position and edit it
+        const editedTodos = [];
+        NewTodos.map((todo) => {
+            if (todo.id === id) {
+                todo.name = e.target.value;
+            }
+            return editedTodos.push(todo);
+        });
+        // 3. reset the todos
+        setTodos(editedTodos);
+    }
     return (
         <div className="Productivity">
             <form onSubmit={(e) => formSubmitted(e)}>
@@ -91,12 +108,19 @@ function Productivity() {
                 />
                 <button>Enter</button>
             </form>
+            
+            <ProgressBar now={60} className="progressBar">
+                <ProgressBar striped variant="success" now={35} key={1} />
+                <ProgressBar variant="warning" now={20} key={2} />
+            </ProgressBar>
+
             <Todos
                 todos={todos}
                 deleteTodo={deleteTodo}
                 addCompleteTodo={addCompleteTodo}
                 pauseTodos={pauseTodos}
-                unpauseTodos = {unpauseTodos}
+                unpauseTodos={unpauseTodos}
+                updateTodo={updateTodo}
             />
             <CompleteTodos
                 completedTodos={completedTodos}
