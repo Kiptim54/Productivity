@@ -9,10 +9,12 @@ function Productivity() {
     const [todo, setTodo] = useState('');
     const [todos, setTodos] = useState([]);
     const [completedTodos, setCompleteTodo] = useState([]);
+    const [completeProgress, setCompleteProgress] = useState(0);
+    const [pausedProgress, setPausedProgress] = useState(0);
 
-    // useEffect(()=>{
-    //     console.log("the useEffect hook has been called")
-    // })
+    useEffect(() => {
+        UpdateProgressBar();
+    }, [todos, completedTodos]);
 
     const updateInput = (input) => {
         setTodo(input);
@@ -31,6 +33,20 @@ function Productivity() {
         setTodo('');
         setTodos(newTodos);
     };
+
+    function UpdateProgressBar() {
+        const totalItems = todos.length + completedTodos.length;
+
+        const pausedItemsArr = todos.filter((todo) => todo.status === 'paused');
+
+        const pausedItemsLength = pausedItemsArr.length;
+        const completedTodosLength = completedTodos.length;
+
+        const pausedPercentage = (100 * pausedItemsLength) / totalItems;
+        const completedPercentage = (100 * completedTodosLength) / totalItems;
+        setCompleteProgress(completedPercentage);
+        setPausedProgress(pausedPercentage);
+    }
 
     function deleteTodo(id) {
         const NewTodo = [...todos];
@@ -108,10 +124,10 @@ function Productivity() {
                 />
                 <button>Enter</button>
             </form>
-            
-            <ProgressBar now={60} className="progressBar">
-                <ProgressBar striped variant="success" now={35} key={1} />
-                <ProgressBar variant="warning" now={20} key={2} />
+
+            <ProgressBar now={100} className="progressBar">
+                <ProgressBar variant="warning" now={pausedProgress} key={2} />
+                <ProgressBar variant="success" now={completeProgress} key={1} />
             </ProgressBar>
 
             <Todos

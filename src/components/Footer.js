@@ -4,7 +4,7 @@ function Footer() {
     const date = new Date()
     return (
         <div className="Footer">
-            <h4>Productivity Inc</h4>
+            <p>Productivity Inc</p>
             <sub>{date.getFullYear()}</sub>
         </div>
     );
