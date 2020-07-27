@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Todos from './Todos';
 import { v4 as uuidv4 } from 'uuid';
 import CompleteTodos from './CompletedTodos';
@@ -11,6 +11,8 @@ function Productivity() {
     const [completedTodos, setCompleteTodo] = useState([]);
     const [completeProgress, setCompleteProgress] = useState(0);
     const [pausedProgress, setPausedProgress] = useState(0);
+
+
 
     useEffect(() => {
         UpdateProgressBar();
@@ -125,7 +127,7 @@ function Productivity() {
                 <button>Enter</button>
             </form>
 
-            <ProgressBar now={100} className="progressBar">
+            <ProgressBar now={100} className={completedTodos.length ===0 && todos.length === 0 ? "progressBar hide":"progressBar" }>
                 <ProgressBar variant="warning" now={pausedProgress} key={2} />
                 <ProgressBar variant="success" now={completeProgress} key={1} />
             </ProgressBar>

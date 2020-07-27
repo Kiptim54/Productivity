@@ -7,7 +7,7 @@ $primary-400: #ccc5b9;
 $primary-500: #fffcf2;
 $success: #4bb543;
 $warning: #f99245;
-$warning: #bd1919;
+$error: #bd1919;
 
 *,
 *::after,
@@ -24,13 +24,14 @@ body {
         'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background: wheat;
     font-size: 16px;
 }
 .App {
     display: flex;
     flex-flow: column;
     min-height: 100vh;
+    background: wheat;
+
 }
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -58,6 +59,7 @@ nav {
             text-decoration: none;
             color: $primary-100;
             font-weight: bold;
+            cursor: pointer;
 
             &.nav-title {
                 font-size: 2rem;

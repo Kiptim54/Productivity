@@ -12,13 +12,7 @@ function Todos(props) {
         unpauseTodos,
         updateTodo
     } = props;
-
-    // const displayTodos = (todos) => {
-    //     todos.map((todo) => {
-    //         return <li key={todo.id}>{todo.name}</li>;
-    //     });
-    // };
-
+    
     return (
         <div className="Todos">
             {todos.length >= 1 ? (

@@ -5,12 +5,13 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
+import ThemeContextProvider from './Context/ThemeContext';
 
 
 ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>
-            <App />
+            <ThemeContextProvider/>
         </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root')

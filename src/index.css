@@ -10832,7 +10832,6 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: wheat;
   font-size: 16px;
 }
 
@@ -10845,6 +10844,7 @@ body {
       -ms-flex-flow: column;
           flex-flow: column;
   min-height: 100vh;
+  background: wheat;
 }
 
 code {
@@ -10879,6 +10879,7 @@ nav ul a {
   text-decoration: none;
   color: #eb5e28;
   font-weight: bold;
+  cursor: pointer;
 }
 
 nav ul a.nav-title {
