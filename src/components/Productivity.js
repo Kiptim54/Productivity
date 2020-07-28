@@ -2,8 +2,9 @@ import React, { useState, useEffect, useContext } from 'react';
 import Todos from './Todos';
 import { v4 as uuidv4 } from 'uuid';
 import CompleteTodos from './CompletedTodos';
-import UseLocalStorage from './UseLocalStorage';
+import UseLocalStorage from './useLocalStorage';
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import useLocalStorage from './useLocalStorage';
 
 function Productivity() {
 
@@ -28,7 +29,6 @@ function Productivity() {
             setCompleteTodo(JSON.parse(completedTodosExist));
         }
         UpdateProgressBar();
-
     }, []);
 
     useEffect(() => {
@@ -155,9 +155,9 @@ function Productivity() {
                     value={todo}
                     onChange={(e) => updateInput(e.target.value)}
                     required
-                    class="form-control"
+                    className="form-control"
                 />
-                <button class="btn">Enter</button>
+                <button className="btn">Enter</button>
             </form>
 
             <ProgressBar
