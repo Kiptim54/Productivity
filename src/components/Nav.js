@@ -15,7 +15,6 @@ function Nav() {
                         Productivity
                     </Link>
                     <Link to="/about">About</Link>
-                    {/* <Link to="/contact">Contacts</Link> */}
                     {LightTheme === false ? (
                         <MdLightbulbOutline
                             size="25"
