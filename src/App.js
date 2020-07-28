@@ -3,7 +3,7 @@ import Nav from './components/Nav';
 import Productivity from './components/Productivity';
 import Footer from './components/Footer';
 import ErrorBoundary from './components/ErrorBoundary';
-import ThemeContextProvider, { ThemeContext } from './Context/ThemeContext';
+import { ThemeContext } from './Context/ThemeContext';
 import AppTheme from './UI/AppTheme';
 
 function App() {

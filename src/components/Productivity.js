@@ -2,21 +2,52 @@ import React, { useState, useEffect, useContext } from 'react';
 import Todos from './Todos';
 import { v4 as uuidv4 } from 'uuid';
 import CompleteTodos from './CompletedTodos';
-import UseLocalStorage from './UserLocalStorage';
+import UseLocalStorage from './UseLocalStorage';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 
 function Productivity() {
+
+
+    const localStorage = window.localStorage;
     const [todo, setTodo] = useState('');
     const [todos, setTodos] = useState([]);
     const [completedTodos, setCompleteTodo] = useState([]);
     const [completeProgress, setCompleteProgress] = useState(0);
     const [pausedProgress, setPausedProgress] = useState(0);
 
+    useEffect(() => {
 
+        const todosExist = localStorage.getItem('todos');
+        const completedTodosExist = localStorage.getItem('completedTodos');
+
+        if (todosExist) {
+            setTodos(JSON.parse(todosExist));
+        }
+
+        if (completedTodosExist) {
+            setCompleteTodo(JSON.parse(completedTodosExist));
+        }
+        UpdateProgressBar();
+
+    }, []);
 
     useEffect(() => {
+
+        // update localStorage when any of the two arrays changes
+        localStorage.setItem('todos', JSON.stringify(todos))
         UpdateProgressBar();
-    }, [todos, completedTodos]);
+    }, [todos]);
+
+    useEffect(() => {
+
+        // update localStorage when any of the two arrays changes
+        localStorage.setItem('completedTodos', JSON.stringify(completedTodos))
+        UpdateProgressBar();
+
+    }, [completedTodos]);
+
+
+
 
     const updateInput = (input) => {
         setTodo(input);
@@ -37,6 +68,7 @@ function Productivity() {
     };
 
     function UpdateProgressBar() {
+        // total items to be used to calculate percentage below
         const totalItems = todos.length + completedTodos.length;
 
         const pausedItemsArr = todos.filter((todo) => todo.status === 'paused');
@@ -123,11 +155,19 @@ function Productivity() {
                     value={todo}
                     onChange={(e) => updateInput(e.target.value)}
                     required
+                    class="form-control"
                 />
-                <button>Enter</button>
+                <button class="btn">Enter</button>
             </form>
 
-            <ProgressBar now={100} className={completedTodos.length ===0 && todos.length === 0 ? "progressBar hide":"progressBar" }>
+            <ProgressBar
+                now={100}
+                className={
+                    completedTodos.length === 0 && todos.length === 0
+                        ? 'progressBar hide'
+                        : 'progressBar'
+                }
+            >
                 <ProgressBar variant="warning" now={pausedProgress} key={2} />
                 <ProgressBar variant="success" now={completeProgress} key={1} />
             </ProgressBar>

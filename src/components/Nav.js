@@ -7,7 +7,6 @@ import { FaFileSignature } from 'react-icons/fa';
 
 function Nav() {
     const {LightTheme, changeTheme} = useContext(ThemeContext);
-    console.log('global theme', LightTheme);
     return (
         <div className="Nav">
             <nav>
