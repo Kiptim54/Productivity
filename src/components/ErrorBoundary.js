@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 
 class ErrorBoundary extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { hasError: false };
+        this.state = {
+            hasError: false,
+            error: '',
+        };
     }
 
     static getDerivedStateFromError(error) {
@@ -13,13 +16,20 @@ class ErrorBoundary extends React.Component {
 
     componentDidCatch(error, errorInfo) {
         // You can also log the error to an error reporting service
-        console.error(error)
+        console.error("this is the error",error);
+        this.setState(error)
     }
 
     render() {
+        // TODO: error not actually displaying when needed
         if (this.state.hasError) {
             // You can render any custom fallback UI
-            return <h1 class="errorMessage">Something went wrong.</h1>;
+            return (
+            <Fragment>
+            <h1 class="errorMessage">Something went wrong.</h1>;
+            <code>{this.state.error}</code>
+            </Fragment>
+            )
         }
 
         return this.props.children;

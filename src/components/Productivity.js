@@ -7,47 +7,17 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import useLocalStorage from './useLocalStorage';
 
 function Productivity() {
-
-
     const localStorage = window.localStorage;
     const [todo, setTodo] = useState('');
-    const [todos, setTodos] = useState([]);
-    const [completedTodos, setCompleteTodo] = useState([]);
+    const [todos, setTodos] = useLocalStorage('todos', []);
+    const [completedTodos, setCompleteTodo] = useLocalStorage('completedTodos', [])
     const [completeProgress, setCompleteProgress] = useState(0);
     const [pausedProgress, setPausedProgress] = useState(0);
 
-    useEffect(() => {
-
-        const todosExist = localStorage.getItem('todos');
-        const completedTodosExist = localStorage.getItem('completedTodos');
-
-        if (todosExist) {
-            setTodos(JSON.parse(todosExist));
-        }
-
-        if (completedTodosExist) {
-            setCompleteTodo(JSON.parse(completedTodosExist));
-        }
-        UpdateProgressBar();
-    }, []);
 
     useEffect(() => {
-
-        // update localStorage when any of the two arrays changes
-        localStorage.setItem('todos', JSON.stringify(todos))
         UpdateProgressBar();
-    }, [todos]);
-
-    useEffect(() => {
-
-        // update localStorage when any of the two arrays changes
-        localStorage.setItem('completedTodos', JSON.stringify(completedTodos))
-        UpdateProgressBar();
-
-    }, [completedTodos]);
-
-
-
+    }, [todos, completedTodos]);
 
     const updateInput = (input) => {
         setTodo(input);
