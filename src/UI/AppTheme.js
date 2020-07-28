@@ -6,6 +6,7 @@ const primary500 = '#fffcf2';
 const success = '#4bb543';
 const warning = '#f99245';
 const error = '#bd1919';
+const wheat = '#F5DEB3';
 
 const AppTheme = {
     darkMode: {
@@ -14,8 +15,8 @@ const AppTheme = {
     },
     lightMode: {
         textColor: primary500,
-        background: primary200,
+        background: wheat,
     },
 };
 
-export default AppTheme; 
+export default AppTheme;
