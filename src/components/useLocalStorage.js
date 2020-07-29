@@ -6,11 +6,6 @@ const useLocalStorage = (key, value) => {
 
     const [local, setLocal] = useState(() => {
         const existingLocal = JSON.parse(localStorage.getItem(key) || value);
-        // console.log(key, existingLocal, JSON.parse(localStorage.getItem(key)));
-        console.log("key", key)
-        console.log("value", value)
-        console.log("existingValue", existingLocal)
-        console.log("parsed exiting value", existingLocal)
         return existingLocal;
     });
 
