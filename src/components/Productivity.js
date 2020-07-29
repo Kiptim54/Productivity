@@ -7,13 +7,15 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import useLocalStorage from './useLocalStorage';
 
 function Productivity() {
-    const localStorage = window.localStorage;
     const [todo, setTodo] = useState('');
     const [todos, setTodos] = useLocalStorage('todos', []);
     const [completedTodos, setCompleteTodo] = useLocalStorage('completedTodos', [])
     const [completeProgress, setCompleteProgress] = useState(0);
     const [pausedProgress, setPausedProgress] = useState(0);
 
+    useEffect(()=>{
+        UpdateProgressBar()
+    },[])
 
     useEffect(() => {
         UpdateProgressBar();

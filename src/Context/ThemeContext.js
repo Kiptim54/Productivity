@@ -6,7 +6,7 @@ import useLocalStorage from '../components/useLocalStorage';
 export const ThemeContext = createContext();
 
 const ThemeContextProvider = (props) => {
-    const [LightTheme, setTheme] = useLocalStorage('LightTheme', false)
+    const [LightTheme, setTheme] = useLocalStorage('LightTheme', true)
 
     const changeTheme = () => {
         setTheme(!LightTheme);
