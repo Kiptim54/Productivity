@@ -26,7 +26,6 @@ function App() {
             <Nav />
             <Productivity />
             <Footer />
-            
             {/* </ErrorBoundary> */}
         </div>
     );
