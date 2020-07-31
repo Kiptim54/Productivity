@@ -10861,38 +10861,38 @@ code {
   display: none;
 }
 
-nav ul {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: row wrap;
-          flex-flow: row wrap;
+nav .navbar-brand {
+  color: #eb5e28;
+  font-weight: bold;
+}
+
+nav .navbar-toggler {
+  color: #eb5e28;
+}
+
+nav .navbar-toggler:hover {
+  text-decoration: none;
+  outline: none;
+  color: #eb5e28;
+}
+
+nav .navbar-toggler:focus {
+  text-decoration: none;
+  outline: none;
+}
+
+nav .navbar-nav {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
 
-nav ul a {
+nav .navbar-nav .nav-item {
   padding: 1rem;
   text-decoration: none;
   color: #eb5e28;
   font-weight: bold;
   cursor: pointer;
-}
-
-nav ul a.nav-title {
-  font-size: 2rem;
-}
-
-nav ul a:nth-child(2) {
-  margin-left: auto;
-}
-
-nav ul a:hover {
-  color: #eb5e28;
-  text-decoration: none;
 }
 
 .Productivity form {
@@ -10903,22 +10903,14 @@ nav ul a:hover {
 }
 
 .Productivity form input {
-  padding: 0.5rem;
-  min-width: 50%;
-  width: 50%;
-  border-radius: 5px;
   background: #fffcf2;
   border: 0;
-  display: inline-block;
 }
 
 .Productivity form button {
   background: #eb5e28;
   min-width: 150px;
-  margin: 1%;
-  border: 0;
-  border-radius: 5px;
-  min-height: 30px;
+  margin-left: 1%;
 }
 
 .Productivity .progressBar {
@@ -10944,6 +10936,7 @@ nav ul a:hover {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  overflow-x: auto;
 }
 
 .Todos .todosList .todoItem input {
@@ -10965,9 +10958,9 @@ nav ul a:hover {
 }
 
 .Todos .todosList .todoItem .control-icons {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 1 20%;
-          flex: 0 1 20%;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 20%;
+          flex: 1 1 20%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -11033,6 +11026,7 @@ nav ul a:hover {
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
+  color: #eb5e28;
 }
 
 .CompleteTodos .completedList .todoItem .control-icons svg {

@@ -9,13 +9,16 @@ import useLocalStorage from './useLocalStorage';
 function Productivity() {
     const [todo, setTodo] = useState('');
     const [todos, setTodos] = useLocalStorage('todos', []);
-    const [completedTodos, setCompleteTodo] = useLocalStorage('completedTodos', [])
+    const [completedTodos, setCompleteTodo] = useLocalStorage(
+        'completedTodos',
+        []
+    );
     const [completeProgress, setCompleteProgress] = useState(0);
     const [pausedProgress, setPausedProgress] = useState(0);
 
-    useEffect(()=>{
-        UpdateProgressBar()
-    },[])
+    useEffect(() => {
+        UpdateProgressBar();
+    }, []);
 
     useEffect(() => {
         UpdateProgressBar();
@@ -119,44 +122,58 @@ function Productivity() {
         setTodos(editedTodos);
     }
     return (
-        <div className="Productivity">
-            <form onSubmit={(e) => formSubmitted(e)}>
-                <input
-                    type="text"
-                    placeholder="Add Item..."
-                    value={todo}
-                    onChange={(e) => updateInput(e.target.value)}
-                    required
-                    className="form-control"
+        <div className="Productivity row">
+            <div className="col-md-12">
+                <form onSubmit={(e) => formSubmitted(e)} className="form-row justify-content-center">
+                    <input
+                        type="text"
+                        placeholder="Add Item..."
+                        value={todo}
+                        onChange={(e) => updateInput(e.target.value)}
+                        required
+                        className="form-control col-md-5"
+                    />
+                    <button className="btn col-md-2">Enter</button>
+                </form>
+            </div>
+            <div className="col-md-12">
+                <ProgressBar
+                    now={100}
+                    className={
+                        completedTodos.length === 0 && todos.length === 0
+                            ? 'progressBar hide'
+                            : 'progressBar'
+                    }
+                >
+                    <ProgressBar
+                        variant="warning"
+                        now={pausedProgress}
+                        key={2}
+                    />
+                    <ProgressBar
+                        variant="success"
+                        now={completeProgress}
+                        key={1}
+                    />
+                </ProgressBar>
+            </div>
+            <div className="col-md-12">
+                <Todos
+                    todos={todos}
+                    deleteTodo={deleteTodo}
+                    addCompleteTodo={addCompleteTodo}
+                    pauseTodos={pauseTodos}
+                    unpauseTodos={unpauseTodos}
+                    updateTodo={updateTodo}
                 />
-                <button className="btn">Enter</button>
-            </form>
-
-            <ProgressBar
-                now={100}
-                className={
-                    completedTodos.length === 0 && todos.length === 0
-                        ? 'progressBar hide'
-                        : 'progressBar'
-                }
-            >
-                <ProgressBar variant="warning" now={pausedProgress} key={2} />
-                <ProgressBar variant="success" now={completeProgress} key={1} />
-            </ProgressBar>
-
-            <Todos
-                todos={todos}
-                deleteTodo={deleteTodo}
-                addCompleteTodo={addCompleteTodo}
-                pauseTodos={pauseTodos}
-                unpauseTodos={unpauseTodos}
-                updateTodo={updateTodo}
-            />
-            <CompleteTodos
-                completedTodos={completedTodos}
-                deleteCompleteTodo={deleteCompleteTodo}
-                redoCompletedTodo={redoCompletedTodo}
-            />
+            </div>
+            <div className="col-md-12">
+                <CompleteTodos
+                    completedTodos={completedTodos}
+                    deleteCompleteTodo={deleteCompleteTodo}
+                    redoCompletedTodo={redoCompletedTodo}
+                />
+            </div>
         </div>
     );
 }
