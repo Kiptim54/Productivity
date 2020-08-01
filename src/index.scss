@@ -31,6 +31,7 @@ body {
     flex-flow: column;
     min-height: 100vh;
     background: wheat;
+    transition: background 150ms ease-in-out;
 }
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -50,6 +51,7 @@ nav {
     .navbar-brand{
         color:$primary-100;
         font-weight: bold;
+        font-size: 2rem;
 
     }
     .navbar-toggler {

@@ -10845,6 +10845,8 @@ body {
           flex-flow: column;
   min-height: 100vh;
   background: wheat;
+  -webkit-transition: background 150ms ease-in-out;
+  transition: background 150ms ease-in-out;
 }
 
 code {
@@ -10864,6 +10866,7 @@ code {
 nav .navbar-brand {
   color: #eb5e28;
   font-weight: bold;
+  font-size: 2rem;
 }
 
 nav .navbar-toggler {
