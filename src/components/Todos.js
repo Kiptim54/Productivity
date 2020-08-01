@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FaPlay, FaPauseCircle } from 'react-icons/fa';
 import { MdDelete, MdReplay, MdDoneAll } from 'react-icons/md';
-
+import doneImage from '../done.svg';
 function Todos(props) {
     const {
         todos,
@@ -10,9 +10,9 @@ function Todos(props) {
         addCompleteTodo,
         pauseTodos,
         unpauseTodos,
-        updateTodo
+        updateTodo,
     } = props;
-    
+
     return (
         <div className="Todos">
             {todos.length >= 1 ? (
@@ -23,12 +23,20 @@ function Todos(props) {
                                 key={todo.id}
                                 className={`todoItem ${todo.status}`}
                             >
-                                <input type="text" value={todo.name} onChange={(e)=>updateTodo(e, todo.id)}/>
+                                <input
+                                    type="text"
+                                    value={todo.name}
+                                    onChange={(e) => updateTodo(e, todo.id)}
+                                />
                                 {/* <li>{todo.name}</li> */}
                                 <span className="control-icons">
                                     <MdDoneAll
                                         onClick={() => addCompleteTodo(todo.id)}
-                                        className={todo.status === 'paused' ? "hide complete-icon" :"complete-icon"}
+                                        className={
+                                            todo.status === 'paused'
+                                                ? 'hide complete-icon'
+                                                : 'complete-icon'
+                                        }
                                         color="#4bb543"
                                         size="25"
                                     />
@@ -60,15 +68,19 @@ function Todos(props) {
                     })}
                 </ul>
             ) : (
-                <h5
-                    style={{
-                        color: '#eb5e28',
-                        textAlign: 'center',
-                        padding: '2%',
-                    }}
-                >
-                    No active todos...
-                </h5>
+                <div className="container">
+                    <img src={doneImage} alt="done" class="img-fluid m-auto" width="300px" style={{display:'block'}} />
+
+                    <h4
+                        style={{
+                            color: '#eb5e28',
+                            textAlign: 'center',
+                            padding: '2%',
+                        }}
+                    >
+                        no pending items...
+                    </h4>
+                </div>
             )}
         </div>
     );

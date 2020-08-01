@@ -131,9 +131,9 @@ function Productivity() {
                         value={todo}
                         onChange={(e) => updateInput(e.target.value)}
                         required
-                        className="form-control col-md-5"
+                        className="form-control col-md-5 m-2"
                     />
-                    <button className="btn col-md-2">Enter</button>
+                    <button className="btn col-md-2 m-2">Enter</button>
                 </form>
             </div>
             <div className="col-md-12">
