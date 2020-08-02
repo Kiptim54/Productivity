@@ -69,7 +69,7 @@ function Todos(props) {
                 </ul>
             ) : (
                 <div className="container">
-                    <img src={doneImage} alt="done" class="img-fluid m-auto" width="300px" style={{display:'block'}} />
+                    <img src={doneImage} alt="done" className="img-fluid m-auto" width="300px" style={{display:'block'}} />
 
                     <h4
                         style={{

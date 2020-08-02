@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import Todos from './Todos';
 import { v4 as uuidv4 } from 'uuid';
 import CompleteTodos from './CompletedTodos';
-import UseLocalStorage from './useLocalStorage';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import useLocalStorage from './useLocalStorage';
 
@@ -93,14 +92,14 @@ function Productivity() {
     }
 
     function pauseTodos(id) {
-        const selectedTodo = todos.find((todo) => todo.id == id);
+        const selectedTodo = todos.find((todo) => todo.id === id);
         selectedTodo.status = 'paused';
         const filterTodos = todos.filter((todo) => todo.id !== id);
         setTodos([...filterTodos, selectedTodo]);
     }
 
     function unpauseTodos(id) {
-        const selectedTodo = todos.find((todo) => todo.id == id);
+        const selectedTodo = todos.find((todo) => todo.id === id);
         selectedTodo.status = 'new';
         const filterTodos = todos.filter((todo) => todo.id !== id);
         setTodos([...filterTodos, selectedTodo]);
