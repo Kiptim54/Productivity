@@ -5,6 +5,8 @@ import Footer from './components/Footer';
 import ErrorBoundary from './components/ErrorBoundary';
 import { ThemeContext } from './Context/ThemeContext';
 import AppTheme from './UI/AppTheme';
+import { Router } from '@reach/router';
+import TryReducer from './components/TryReducer';
 
 function App() {
     const { LightTheme } = useContext(ThemeContext);
@@ -21,11 +23,15 @@ function App() {
             className="App container-fluid"
             style={{ background: theme.background, color: theme.textColor }}
         >
-            {/* <ErrorBoundary> */}
-            <Nav />
-            <Productivity />
-            <Footer />
-            {/* </ErrorBoundary> */}
+            <ErrorBoundary>
+                <Nav />
+
+                <Router>
+                    <Productivity path="/" />
+                    <TryReducer path="/about" />
+                </Router>
+                <Footer />
+            </ErrorBoundary>
         </div>
     );
 }
