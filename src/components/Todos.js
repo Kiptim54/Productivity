@@ -77,6 +77,7 @@ function Todos(props) {
                             textAlign: 'center',
                             padding: '2%',
                         }}
+                        data-testid="todos-empty-container"
                     >
                         no pending items...
                     </h4>
