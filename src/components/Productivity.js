@@ -118,11 +118,6 @@ function Productivity() {
     }
 
     function deleteTodo(id) {
-        // const NewTodo = [...todos];
-        // const filteredTodo = NewTodo.filter((todoItem) => {
-        //     return todoItem.id !== id;
-        // });
-        // setTodos(filteredTodo);
         dispatch({ type: ACTIONS.DELETE, payload: { id } });
     }
 
@@ -154,35 +149,14 @@ function Productivity() {
     }
 
     function pauseTodos(id) {
-        // const selectedTodo = todos.find((todo) => todo.id === id);
-        // selectedTodo.status = 'paused';
-        // const filterTodos = todos.filter((todo) => todo.id !== id);
-        // setTodos([...filterTodos, selectedTodo]);
         dispatch({ type: ACTIONS.PAUSE, payload: { id } });
     }
 
     function unpauseTodos(id) {
-        // const selectedTodo = todos.find((todo) => todo.id === id);
-        // selectedTodo.status = 'new';
-        // const filterTodos = todos.filter((todo) => todo.id !== id);
-        // setTodos([...filterTodos, selectedTodo]);
         dispatch({ type: ACTIONS.UNPAUSE, payload: { id } });
     }
 
-    function updateTodo(e, id) {
-        // 1. create shallow copy of the array
-        // const NewTodos = [...todos];
-
-        // // 2 Find item in list and it's index position and edit it
-        // const editedTodos = [];
-        // NewTodos.map((todo) => {
-        //     if (todo.id === id) {
-        //         todo.name = e.target.value;
-        //     }
-        //     return editedTodos.push(todo);
-        // });
-        // // 3. reset the todos
-        // setTodos(editedTodos);
+    function updateTodo(e, id) {;
         dispatch({
             type: ACTIONS.EDIT,
             payload: { id: id, value: e.target.value },
