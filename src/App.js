@@ -23,7 +23,7 @@ function App() {
             className="App container-fluid"
             style={{ background: theme.background, color: theme.textColor }}
         >
-            <ErrorBoundary>
+            {/* <ErrorBoundary> */}
                 <Nav />
 
                 <Router>
@@ -31,7 +31,7 @@ function App() {
                     <About path="/about" />
                 </Router>
                 <Footer />
-            </ErrorBoundary>
+            {/* </ErrorBoundary> */}
         </div>
     );
 }

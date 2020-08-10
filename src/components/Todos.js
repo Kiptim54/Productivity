@@ -12,7 +12,7 @@ function Todos(props) {
         unpauseTodos,
         updateTodo,
     } = props;
-
+    // console.log("todos delivered in the Todos.js", todos)
     return (
         <div className="Todos">
             {todos.length >= 1 ? (

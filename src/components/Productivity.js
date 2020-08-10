@@ -14,20 +14,23 @@ const ACTIONS = {
     UPDATE: 'update',
 };
 
-const reducer = (reducerTodos, action) => {
+const reducer = (state, action) => {
+    console.log(state , "this is the state and what we should return");
     const { type, payload } = action;
-    // console.log(type, payload)
     switch (type) {
         case ACTIONS.ADD: {
-            return [...reducerTodos, payload.Todo];
+            console.log('in the add reducer function');
+            state.reducerTodos = [...state.reducerTodos, payload.Todo];
+            console.log(state)
+            return state
         }
 
         case ACTIONS.DELETE: {
-            return reducerTodos.filter((todo) => todo.id != payload.id);
+            return state.reducerTodos.filter((todo) => todo.id != payload.id);
         }
 
         case ACTIONS.EDIT: {
-            const newTodos = [...reducerTodos];
+            const newTodos = [...state.reducerTodos];
             newTodos.map((todo) => {
                 if (todo.id === payload.id) {
                     todo.name = payload.value;
@@ -37,7 +40,7 @@ const reducer = (reducerTodos, action) => {
         }
 
         case ACTIONS.PAUSE: {
-            const newTodos = [...reducerTodos];
+            const newTodos = [...state.reducerTodos];
             newTodos.map((todo) => {
                 if (todo.id === payload.id) {
                     todo.status = 'paused';
@@ -47,7 +50,7 @@ const reducer = (reducerTodos, action) => {
         }
 
         case ACTIONS.UNPAUSE: {
-            const newTodos = [...reducerTodos];
+            const newTodos = [...state.reducerTodos];
             newTodos.map((todo) => {
                 if (todo.id === payload.id) {
                     todo.status = 'new';
@@ -55,21 +58,26 @@ const reducer = (reducerTodos, action) => {
             });
             return newTodos;
         }
-        
+
         default:
             throw new Error('does not match any case');
     }
 };
+
 function Productivity() {
     const [todo, setTodo] = useState('');
     const [todos, setTodos] = useLocalStorage('todos', []);
-    const [reducerTodos, dispatch] = useReducer(reducer, []);
+    const [state, dispatch] = useReducer(reducer, {
+        reducerTodos: [{ name: 'hehehe', id: 1, status: 'new' }],
+        reducercompletedTodos: [],
+    });
     const [completedTodos, setCompleteTodo] = useLocalStorage(
         'completedTodos',
         []
     );
     const [completeProgress, setCompleteProgress] = useState(0);
     const [pausedProgress, setPausedProgress] = useState(0);
+    const { reducerTodos, reducercompletedTodos } = state;
 
     useEffect(() => {
         UpdateProgressBar();
@@ -80,8 +88,8 @@ function Productivity() {
     }, [todos, completedTodos]);
 
     useEffect(() => {
-        console.log('updating reducer toods', reducerTodos);
-    }, [reducerTodos]);
+        console.log('updating reducer todos', reducerTodos);
+    }, [state]);
 
     const updateInput = (input) => {
         setTodo(input);
@@ -97,7 +105,8 @@ function Productivity() {
             status: 'new',
         };
         // setTodos(newTodos);
-        const newTodos = [...todos, newTodo];
+        // const newTodos = [...todos, newTodo];
+        console.log('in the submit function');
         dispatch({ type: ACTIONS.ADD, payload: { Todo: newTodo } });
         setTodo('');
     };
@@ -156,7 +165,7 @@ function Productivity() {
         dispatch({ type: ACTIONS.UNPAUSE, payload: { id } });
     }
 
-    function updateTodo(e, id) {;
+    function updateTodo(e, id) {
         dispatch({
             type: ACTIONS.EDIT,
             payload: { id: id, value: e.target.value },
