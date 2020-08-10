@@ -6,7 +6,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 import { ThemeContext } from './Context/ThemeContext';
 import AppTheme from './UI/AppTheme';
 import { Router } from '@reach/router';
-import TryReducer from './components/TryReducer';
+import About from './components/About';
 
 function App() {
     const { LightTheme } = useContext(ThemeContext);
@@ -28,7 +28,7 @@ function App() {
 
                 <Router>
                     <Productivity path="/" />
-                    <TryReducer path="/about" />
+                    <About path="/about" />
                 </Router>
                 <Footer />
             </ErrorBoundary>

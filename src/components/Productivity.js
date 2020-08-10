@@ -1,13 +1,69 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, createContext, useReducer } from 'react';
 import Todos from './Todos';
 import { v4 as uuidv4 } from 'uuid';
 import CompleteTodos from './CompletedTodos';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import useLocalStorage from './useLocalStorage';
 
+const ACTIONS = {
+    ADD: 'add',
+    DELETE: 'delete',
+    EDIT: 'edit',
+    PAUSE: 'pause',
+    UNPAUSE: 'unpause',
+    UPDATE: 'update',
+};
+
+const reducer = (reducerTodos, action) => {
+    const { type, payload } = action;
+    // console.log(type, payload)
+    switch (type) {
+        case ACTIONS.ADD: {
+            return [...reducerTodos, payload.Todo];
+        }
+
+        case ACTIONS.DELETE: {
+            return reducerTodos.filter((todo) => todo.id != payload.id);
+        }
+
+        case ACTIONS.EDIT: {
+            const newTodos = [...reducerTodos];
+            newTodos.map((todo) => {
+                if (todo.id === payload.id) {
+                    todo.name = payload.value;
+                }
+            });
+            return newTodos;
+        }
+
+        case ACTIONS.PAUSE: {
+            const newTodos = [...reducerTodos];
+            newTodos.map((todo) => {
+                if (todo.id === payload.id) {
+                    todo.status = 'paused';
+                }
+            });
+            return newTodos;
+        }
+
+        case ACTIONS.UNPAUSE: {
+            const newTodos = [...reducerTodos];
+            newTodos.map((todo) => {
+                if (todo.id === payload.id) {
+                    todo.status = 'new';
+                }
+            });
+            return newTodos;
+        }
+        
+        default:
+            throw new Error('does not match any case');
+    }
+};
 function Productivity() {
     const [todo, setTodo] = useState('');
     const [todos, setTodos] = useLocalStorage('todos', []);
+    const [reducerTodos, dispatch] = useReducer(reducer, []);
     const [completedTodos, setCompleteTodo] = useLocalStorage(
         'completedTodos',
         []
@@ -23,6 +79,10 @@ function Productivity() {
         UpdateProgressBar();
     }, [todos, completedTodos]);
 
+    useEffect(() => {
+        console.log('updating reducer toods', reducerTodos);
+    }, [reducerTodos]);
+
     const updateInput = (input) => {
         setTodo(input);
     };
@@ -36,9 +96,10 @@ function Productivity() {
             // TODO:  find a better way to represent todo status
             status: 'new',
         };
+        // setTodos(newTodos);
         const newTodos = [...todos, newTodo];
+        dispatch({ type: ACTIONS.ADD, payload: { Todo: newTodo } });
         setTodo('');
-        setTodos(newTodos);
     };
 
     function UpdateProgressBar() {
@@ -57,11 +118,12 @@ function Productivity() {
     }
 
     function deleteTodo(id) {
-        const NewTodo = [...todos];
-        const filteredTodo = NewTodo.filter((todoItem) => {
-            return todoItem.id !== id;
-        });
-        setTodos(filteredTodo);
+        // const NewTodo = [...todos];
+        // const filteredTodo = NewTodo.filter((todoItem) => {
+        //     return todoItem.id !== id;
+        // });
+        // setTodos(filteredTodo);
+        dispatch({ type: ACTIONS.DELETE, payload: { id } });
     }
 
     function addCompleteTodo(id) {
@@ -92,38 +154,47 @@ function Productivity() {
     }
 
     function pauseTodos(id) {
-        const selectedTodo = todos.find((todo) => todo.id === id);
-        selectedTodo.status = 'paused';
-        const filterTodos = todos.filter((todo) => todo.id !== id);
-        setTodos([...filterTodos, selectedTodo]);
+        // const selectedTodo = todos.find((todo) => todo.id === id);
+        // selectedTodo.status = 'paused';
+        // const filterTodos = todos.filter((todo) => todo.id !== id);
+        // setTodos([...filterTodos, selectedTodo]);
+        dispatch({ type: ACTIONS.PAUSE, payload: { id } });
     }
 
     function unpauseTodos(id) {
-        const selectedTodo = todos.find((todo) => todo.id === id);
-        selectedTodo.status = 'new';
-        const filterTodos = todos.filter((todo) => todo.id !== id);
-        setTodos([...filterTodos, selectedTodo]);
+        // const selectedTodo = todos.find((todo) => todo.id === id);
+        // selectedTodo.status = 'new';
+        // const filterTodos = todos.filter((todo) => todo.id !== id);
+        // setTodos([...filterTodos, selectedTodo]);
+        dispatch({ type: ACTIONS.UNPAUSE, payload: { id } });
     }
 
     function updateTodo(e, id) {
         // 1. create shallow copy of the array
-        const NewTodos = [...todos];
+        // const NewTodos = [...todos];
 
-        // 2 Find item in list and it's index position and edit it
-        const editedTodos = [];
-        NewTodos.map((todo) => {
-            if (todo.id === id) {
-                todo.name = e.target.value;
-            }
-            return editedTodos.push(todo);
+        // // 2 Find item in list and it's index position and edit it
+        // const editedTodos = [];
+        // NewTodos.map((todo) => {
+        //     if (todo.id === id) {
+        //         todo.name = e.target.value;
+        //     }
+        //     return editedTodos.push(todo);
+        // });
+        // // 3. reset the todos
+        // setTodos(editedTodos);
+        dispatch({
+            type: ACTIONS.EDIT,
+            payload: { id: id, value: e.target.value },
         });
-        // 3. reset the todos
-        setTodos(editedTodos);
     }
     return (
         <div className="Productivity row">
             <div className="col-md-12">
-                <form onSubmit={(e) => formSubmitted(e)} className="form-row justify-content-center">
+                <form
+                    onSubmit={formSubmitted}
+                    className="form-row justify-content-center"
+                >
                     <input
                         type="text"
                         placeholder="Add Item..."
@@ -141,7 +212,7 @@ function Productivity() {
                     className={
                         completedTodos.length === 0 && todos.length === 0
                             ? 'progressBar hide'
-                            : 'progressBar'
+                            : 'progressBar hide'
                     }
                 >
                     <ProgressBar
@@ -158,7 +229,7 @@ function Productivity() {
             </div>
             <div className="col-md-12">
                 <Todos
-                    todos={todos}
+                    todos={reducerTodos}
                     deleteTodo={deleteTodo}
                     addCompleteTodo={addCompleteTodo}
                     pauseTodos={pauseTodos}
