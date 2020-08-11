@@ -4,71 +4,13 @@ import { v4 as uuidv4 } from 'uuid';
 import CompleteTodos from './CompletedTodos';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import useLocalStorage from './useLocalStorage';
-
-const ACTIONS = {
-    ADD: 'add',
-    DELETE: 'delete',
-    EDIT: 'edit',
-    PAUSE: 'pause',
-    UNPAUSE: 'unpause',
-    UPDATE: 'update',
-};
-
-const reducer = (state, action) => {
-    console.log(state , "this is the state and what we should return");
-    const { type, payload } = action;
-    switch (type) {
-        case ACTIONS.ADD: {
-            console.log('in the add reducer function');
-            state.reducerTodos = [...state.reducerTodos, payload.Todo];
-            console.log(state)
-            return state
-        }
-
-        case ACTIONS.DELETE: {
-            return state.reducerTodos.filter((todo) => todo.id != payload.id);
-        }
-
-        case ACTIONS.EDIT: {
-            const newTodos = [...state.reducerTodos];
-            newTodos.map((todo) => {
-                if (todo.id === payload.id) {
-                    todo.name = payload.value;
-                }
-            });
-            return newTodos;
-        }
-
-        case ACTIONS.PAUSE: {
-            const newTodos = [...state.reducerTodos];
-            newTodos.map((todo) => {
-                if (todo.id === payload.id) {
-                    todo.status = 'paused';
-                }
-            });
-            return newTodos;
-        }
-
-        case ACTIONS.UNPAUSE: {
-            const newTodos = [...state.reducerTodos];
-            newTodos.map((todo) => {
-                if (todo.id === payload.id) {
-                    todo.status = 'new';
-                }
-            });
-            return newTodos;
-        }
-
-        default:
-            throw new Error('does not match any case');
-    }
-};
+import reducer from './reducer';
 
 function Productivity() {
     const [todo, setTodo] = useState('');
     const [todos, setTodos] = useLocalStorage('todos', []);
     const [state, dispatch] = useReducer(reducer, {
-        reducerTodos: [{ name: 'hehehe', id: 1, status: 'new' }],
+        reducerTodos: [],
         reducercompletedTodos: [],
     });
     const [completedTodos, setCompleteTodo] = useLocalStorage(
@@ -86,10 +28,6 @@ function Productivity() {
     useEffect(() => {
         UpdateProgressBar();
     }, [todos, completedTodos]);
-
-    useEffect(() => {
-        console.log('updating reducer todos', reducerTodos);
-    }, [state]);
 
     const updateInput = (input) => {
         setTodo(input);
@@ -132,13 +70,13 @@ function Productivity() {
 
     function addCompleteTodo(id) {
         // 1. move item to the completed array: completedTodos
-        const item = todos.find((todoItem) => todoItem.id === id);
+        const item = reducerTodos.find((todoItem) => todoItem.id === id);
         item.status = 'complete';
         const newCompleteTodo = [...completedTodos, item];
         setCompleteTodo(newCompleteTodo);
 
         // 2. delete it from the current todo list: todos
-        deleteTodo(id);
+        dispatch({ type: ACTIONS.DELETE, payload: { id } });
     }
 
     function deleteCompleteTodo(id) {
@@ -151,7 +89,8 @@ function Productivity() {
         // find the selected todo in the completed todo list and move it to the active todo section
         const seletedTodo = completedTodos.find((todo) => todo.id === id);
         seletedTodo.status = 'new';
-        setTodos([...todos, seletedTodo]);
+        // setTodos([...todos, seletedTodo]);
+        dispatch({ type: ACTIONS.ADD, payload: { Todo: seletedTodo } });
 
         // remove from the completed todo list
         deleteCompleteTodo(id);
