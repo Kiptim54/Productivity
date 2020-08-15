@@ -1,17 +1,21 @@
-const ACTIONS = {
+export const ACTIONS = {
     ADD: 'add',
     DELETE: 'delete',
     EDIT: 'edit',
     PAUSE: 'pause',
     UNPAUSE: 'unpause',
     UPDATE: 'update',
+    ADDCOMPLETEDTODO: 'addCompletedTodo',
+    DELETECOMPLETEDTODO: 'deletedCompletedTodo',
 };
 
 const reducer = (state, action) => {
+    const localStorage = window.localStorage;
     const { type, payload } = action;
     switch (type) {
         case ACTIONS.ADD: {
             const reducerTodos = [...state.reducerTodos, payload.Todo];
+            localStorage.setItem('reducerTodos', JSON.stringify(reducerTodos));
             return { ...state, reducerTodos };
         }
 
@@ -19,6 +23,7 @@ const reducer = (state, action) => {
             const reducerTodos = state.reducerTodos.filter(
                 (todo) => todo.id != payload.id
             );
+            localStorage.setItem('reducerTodos', JSON.stringify(reducerTodos));
             return { ...state, reducerTodos };
         }
 
@@ -29,7 +34,8 @@ const reducer = (state, action) => {
                     todo.name = payload.value;
                 }
             });
-            return { ...state, ...reducerTodos };
+            localStorage.setItem('reducerTodos', JSON.stringify(reducerTodos));
+            return { ...state, reducerTodos };
         }
 
         case ACTIONS.PAUSE: {
@@ -39,6 +45,7 @@ const reducer = (state, action) => {
                     todo.status = 'paused';
                 }
             });
+            localStorage.setItem('reducerTodos', JSON.stringify(reducerTodos));
             return { ...state, reducerTodos };
         }
 
@@ -49,7 +56,27 @@ const reducer = (state, action) => {
                     todo.status = 'new';
                 }
             });
-            return { ...state, ...reducerTodos };
+            localStorage.setItem('reducerTodos', JSON.stringify(reducerTodos));
+            return { ...state, reducerTodos };
+        }
+
+        case ACTIONS.ADDCOMPLETEDTODO: {
+            const reducercompletedTodos = [
+                ...state.reducercompletedTodos,
+                payload.completedTodo,
+            ];
+            localStorage.setItem('reducercompletedTodos', JSON.stringify(reducercompletedTodos));
+
+            return { ...state, reducercompletedTodos };
+        }
+
+        case ACTIONS.DELETECOMPLETEDTODO: {
+            const reducercompletedTodosCopy = [...state.reducercompletedTodos];
+            const reducercompletedTodos = reducercompletedTodosCopy.filter(
+                (todo) => todo.id !== payload.id
+            );
+            localStorage.setItem('reducercompletedTodos', JSON.stringify(reducercompletedTodos));
+            return { ...state, reducercompletedTodos };
         }
 
         default:

@@ -4,14 +4,20 @@ import { v4 as uuidv4 } from 'uuid';
 import CompleteTodos from './CompletedTodos';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import useLocalStorage from './useLocalStorage';
-import reducer from './reducer';
+import reducer, { ACTIONS } from './reducer';
 
 function Productivity() {
+    const localStorage = window.localStorage;
+
     const [todo, setTodo] = useState('');
     const [todos, setTodos] = useLocalStorage('todos', []);
     const [state, dispatch] = useReducer(reducer, {
-        reducerTodos: [],
-        reducercompletedTodos: [],
+        reducerTodos:
+            JSON.parse(localStorage.getItem('reducerTodos')) ||
+            localStorage.setItem('reducerTodos', JSON.stringify([])),
+        reducercompletedTodos:
+            JSON.parse(localStorage.getItem('reducercompletedTodos')) ||
+            localStorage.setItem('reducercompletedTodos', JSON.stringify([])),
     });
     const [completedTodos, setCompleteTodo] = useLocalStorage(
         'completedTodos',
@@ -21,9 +27,9 @@ function Productivity() {
     const [pausedProgress, setPausedProgress] = useState(0);
     const { reducerTodos, reducercompletedTodos } = state;
 
-    useEffect(() => {
-        UpdateProgressBar();
-    }, []);
+    // useEffect(() => {
+    //     UpdateProgressBar();
+    // }, []);
 
     useEffect(() => {
         UpdateProgressBar();
@@ -42,9 +48,6 @@ function Productivity() {
             // TODO:  find a better way to represent todo status
             status: 'new',
         };
-        // setTodos(newTodos);
-        // const newTodos = [...todos, newTodo];
-        console.log('in the submit function');
         dispatch({ type: ACTIONS.ADD, payload: { Todo: newTodo } });
         setTodo('');
     };
@@ -70,28 +73,32 @@ function Productivity() {
 
     function addCompleteTodo(id) {
         // 1. move item to the completed array: completedTodos
-        const item = reducerTodos.find((todoItem) => todoItem.id === id);
-        item.status = 'complete';
-        const newCompleteTodo = [...completedTodos, item];
-        setCompleteTodo(newCompleteTodo);
+        const completedTodo = reducerTodos.find(
+            (todoItem) => todoItem.id === id
+        );
+        completedTodo.status = 'complete';
+
+        dispatch({
+            type: ACTIONS.ADDCOMPLETEDTODO,
+            payload: { completedTodo },
+        });
 
         // 2. delete it from the current todo list: todos
-        dispatch({ type: ACTIONS.DELETE, payload: { id } });
+        deleteTodo(id);
     }
 
     function deleteCompleteTodo(id) {
-        const completeTodosCopy = [...completedTodos];
-        const filteredList = completeTodosCopy.filter((todo) => todo.id !== id);
-        setCompleteTodo(filteredList);
+        dispatch({ type: ACTIONS.DELETECOMPLETEDTODO, payload: { id } });
     }
 
     function redoCompletedTodo(id) {
         // find the selected todo in the completed todo list and move it to the active todo section
-        const seletedTodo = completedTodos.find((todo) => todo.id === id);
+        const seletedTodo = reducercompletedTodos.find(
+            (todo) => todo.id === id
+        );
         seletedTodo.status = 'new';
         // setTodos([...todos, seletedTodo]);
         dispatch({ type: ACTIONS.ADD, payload: { Todo: seletedTodo } });
-
         // remove from the completed todo list
         deleteCompleteTodo(id);
     }
@@ -161,7 +168,7 @@ function Productivity() {
             </div>
             <div className="col-md-12">
                 <CompleteTodos
-                    completedTodos={completedTodos}
+                    completedTodos={reducercompletedTodos}
                     deleteCompleteTodo={deleteCompleteTodo}
                     redoCompletedTodo={redoCompletedTodo}
                 />
