@@ -5,6 +5,8 @@ import Footer from './components/Footer';
 import ErrorBoundary from './components/ErrorBoundary';
 import { ThemeContext } from './Context/ThemeContext';
 import AppTheme from './UI/AppTheme';
+import { Router } from '@reach/router';
+import About from './components/About';
 
 function App() {
     const { LightTheme } = useContext(ThemeContext);
@@ -22,9 +24,13 @@ function App() {
             style={{ background: theme.background, color: theme.textColor }}
         >
             {/* <ErrorBoundary> */}
-            <Nav />
-            <Productivity />
-            <Footer />
+                <Nav />
+
+                <Router>
+                    <Productivity path="/" />
+                    <About path="/about" />
+                </Router>
+                <Footer />
             {/* </ErrorBoundary> */}
         </div>
     );
