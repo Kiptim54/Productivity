@@ -4,6 +4,7 @@ import { MdLightbulbOutline } from 'react-icons/md';
 import { FiMoon, FiMenu } from 'react-icons/fi';
 import { ThemeContext } from '../Context/ThemeContext';
 import { FaFileSignature } from 'react-icons/fa';
+import {Form, FormCheck} from 'react-bootstrap';
 
 function Nav() {
     const { LightTheme, changeTheme } = useContext(ThemeContext);
@@ -47,6 +48,14 @@ function Nav() {
                                     onClick={() => changeTheme()}
                                 />
                             )}
+                            {/* TODO: use form-check to toggle night and default mode */}
+                            {/* <Form>
+                                <Form.Check
+                                    type="switch"
+                                    id="custom-switch"
+                                    label="Check this switch"
+                                />
+                            </Form> */}
                         </ul>
                     </div>
                 </nav>

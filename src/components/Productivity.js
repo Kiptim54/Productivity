@@ -10,7 +10,6 @@ function Productivity() {
     const localStorage = window.localStorage;
 
     const [todo, setTodo] = useState('');
-    const [todos, setTodos] = useLocalStorage('todos', []);
     const [state, dispatch] = useReducer(reducer, {
         reducerTodos:
             JSON.parse(localStorage.getItem('reducerTodos')) ||
@@ -19,21 +18,17 @@ function Productivity() {
             JSON.parse(localStorage.getItem('reducercompletedTodos')) ||
             localStorage.setItem('reducercompletedTodos', JSON.stringify([])),
     });
-    const [completedTodos, setCompleteTodo] = useLocalStorage(
-        'completedTodos',
-        []
-    );
     const [completeProgress, setCompleteProgress] = useState(0);
     const [pausedProgress, setPausedProgress] = useState(0);
     const { reducerTodos, reducercompletedTodos } = state;
 
-    // useEffect(() => {
-    //     UpdateProgressBar();
-    // }, []);
+    useEffect(() => {
+        UpdateProgressBar();
+    }, []);
 
     useEffect(() => {
         UpdateProgressBar();
-    }, [todos, completedTodos]);
+    }, [reducerTodos, reducercompletedTodos]);
 
     const updateInput = (input) => {
         setTodo(input);
@@ -54,12 +49,12 @@ function Productivity() {
 
     function UpdateProgressBar() {
         // total items to be used to calculate percentage below
-        const totalItems = todos.length + completedTodos.length;
+        const totalItems = reducerTodos.length + reducercompletedTodos.length;
 
-        const pausedItemsArr = todos.filter((todo) => todo.status === 'paused');
+        const pausedItemsArr = reducerTodos.filter((todo) => todo.status === 'paused');
 
         const pausedItemsLength = pausedItemsArr.length;
-        const completedTodosLength = completedTodos.length;
+        const completedTodosLength = reducercompletedTodos.length;
 
         const pausedPercentage = (100 * pausedItemsLength) / totalItems;
         const completedPercentage = (100 * completedTodosLength) / totalItems;
@@ -97,7 +92,6 @@ function Productivity() {
             (todo) => todo.id === id
         );
         seletedTodo.status = 'new';
-        // setTodos([...todos, seletedTodo]);
         dispatch({ type: ACTIONS.ADD, payload: { Todo: seletedTodo } });
         // remove from the completed todo list
         deleteCompleteTodo(id);
@@ -139,9 +133,9 @@ function Productivity() {
                 <ProgressBar
                     now={100}
                     className={
-                        completedTodos.length === 0 && todos.length === 0
+                        reducercompletedTodos.length === 0 && reducerTodos.length === 0
                             ? 'progressBar hide'
-                            : 'progressBar hide'
+                            : 'progressBar'
                     }
                 >
                     <ProgressBar
