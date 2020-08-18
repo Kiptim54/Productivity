@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`learning and testing the counter component component should render 1`] = `
+<div>
+  <div
+    class="container"
+  >
+    <button>
+      Increase
+    </button>
+    <p
+      data-testid="countertag"
+    >
+      0
+    </p>
+    <button>
+      Decrease
+    </button>
+  </div>
+</div>
+`;
