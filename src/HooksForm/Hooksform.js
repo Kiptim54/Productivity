@@ -1,4 +1,7 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import WatchComponent from './Watch';
+import UseArray from './UseArray';
+
 // import { useForm } from 'react-hook-form';
 // import { yupResolver } from '@hookform/resolvers';
 // import * as yup from 'yup';
@@ -33,8 +36,8 @@ import React, {useState} from 'react';
 //                     className="form-control"
 //                     ref={register}
 //                 />
-//                <p className="text-danger">{errors.name && errors.name.message}</p> 
-            
+//                <p className="text-danger">{errors.name && errors.name.message}</p>
+
 //                 <label htmlFor="password">password</label>
 //                 <input
 //                     type="password"
@@ -55,29 +58,29 @@ import React, {useState} from 'react';
 
 // export default Hooksform;
 
-const Counter = ()=>{
-    const [count, setCount] = useState(0)
-    function increase(){
-        setCount((current)=>{
-            return current+=1
-        })
+const Counter = () => {
+    const [count, setCount] = useState(0);
+    function increase() {
+        setCount((current) => {
+            return (current += 1);
+        });
     }
-    function decrease(){
-        setTimeout(()=>{
-            setCount((current)=>{
-                return current-=1
-            })
-        }, 1000)
-       
+    function decrease() {
+        setTimeout(() => {
+            setCount((current) => {
+                return (current -= 1);
+            });
+        }, 1000);
     }
-    return(
+    return (
         <div className="container">
-            <button onClick={increase}>Increase</button>
+            {/* <button onClick={increase}>Increase</button>
             <p data-testid="countertag">{count}</p> 
-            <button onClick={decrease}>Decrease</button>
-
+            <button onClick={decrease}>Decrease</button> */}
+            {/* <WatchComponent /> */}
+            <UseArray/>
         </div>
-    )
-}
+    );
+};
 
-export default Counter
+export default Counter;

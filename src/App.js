@@ -7,7 +7,7 @@ import { ThemeContext } from './Context/ThemeContext';
 import AppTheme from './UI/AppTheme';
 import { Router } from '@reach/router';
 import About from './components/About';
-import Hooksform from './components/Hooksform';
+import Hooksform from './HooksForm/Hooksform';
 
 function App() {
     const { LightTheme } = useContext(ThemeContext);
@@ -25,14 +25,14 @@ function App() {
             style={{ background: theme.background, color: theme.textColor }}
         >
             {/* <ErrorBoundary> */}
-                <Nav />
+            <Nav />
 
-                <Router>
-                    <Productivity path="/" />
-                    <About path="/about" />
-                    <Hooksform path="/hooks-form"/>
-                </Router>
-                <Footer />
+            <Router>
+                <Productivity path="/" />
+                <About path="/about" />
+                <Hooksform path="/hooks-form" />
+            </Router>
+            <Footer />
             {/* </ErrorBoundary> */}
         </div>
     );

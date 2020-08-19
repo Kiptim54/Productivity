@@ -2,12 +2,12 @@ import React from 'react';
 import { render, cleanup, fireEvent, waitForElement } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import '@testing-library/jest-dom/extend-expect'
-import Counter from '../components/Hooksform';
+import Counter from '../Hooksform/Hooksform';
 
 afterEach(cleanup)
 describe('learning and testing the counter component', () => {
     it('component should render', () => {
-        const { container, getByText, getByTestId } = render(<Counter />);
+        const { container} = render(<Counter />);
         expect(container).toMatchSnapshot();
     });
 
