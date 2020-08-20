@@ -7,21 +7,21 @@ import useLocalStorage from './useLocalStorage';
 import reducer, { ACTIONS } from './reducer';
 
 function Productivity() {
+
+    const setLocalStorage = (item)=>{
+        localStorage.setItem(item, JSON.stringify([])) 
+        return []
+    }
     const localStorage = window.localStorage;
 
     const [todo, setTodo] = useState('');
     const [state, dispatch] = useReducer(reducer, {
-        reducerTodos:
-            JSON.parse(localStorage.getItem('reducerTodos')) ||
-            localStorage.setItem('reducerTodos', JSON.stringify([])),
-        reducercompletedTodos:
-            JSON.parse(localStorage.getItem('reducercompletedTodos')) ||
-            localStorage.setItem('reducercompletedTodos', JSON.stringify([])),
+        reducerTodos: setLocalStorage('reducerTodos'),
+        reducercompletedTodos: setLocalStorage('reducercompletedTodos'),
     });
     const [completeProgress, setCompleteProgress] = useState(0);
     const [pausedProgress, setPausedProgress] = useState(0);
     const { reducerTodos, reducercompletedTodos } = state;
-    console.log(redoCompletedTodo, reducerTodos)
 
     useEffect(() => {
         UpdateProgressBar();
@@ -134,7 +134,7 @@ function Productivity() {
                 <ProgressBar
                     now={100}
                     className={
-                        reducercompletedTodos?.length === 0 && reducerTodos?.length === 0
+                        reducercompletedTodos.length === 0 && reducerTodos.length === 0
                             ? 'progressBar hide'
                             : 'progressBar'
                     }
