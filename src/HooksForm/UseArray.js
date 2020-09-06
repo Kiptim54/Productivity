@@ -48,8 +48,6 @@ const UseArray = () => {
                 <Col>
                     <Form onSubmit={handleSubmit(onSubmit)}>
                         {fields.map((field, index) => (
-                            // console.log(field, index)
-                            // return(
                             <Form.Group key={field.id}>
                                 <Form.Label htmlFor="field_of_study">
                                     Field of Study
@@ -89,7 +87,6 @@ const UseArray = () => {
                                     Delete
                                 </Button>
                             </Form.Group>
-                            // )
                         ))}
                         <Button
                             onClick={() =>
