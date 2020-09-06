@@ -7,12 +7,14 @@ import useLocalStorage from './useLocalStorage';
 import reducer, { ACTIONS } from './reducer';
 
 function Productivity() {
-
-    const setLocalStorage = (item)=>{
-        localStorage.setItem(item, JSON.stringify([])) 
-        return []
-    }
-    const localStorage = window.localStorage;
+    const setLocalStorage = (item) => {
+        const storedItem = JSON.parse(localStorage.getItem(item));
+        if (storedItem && storedItem != null) {
+            return storedItem;
+        }
+        localStorage.setItem(item, JSON.stringify([]));
+        return [];
+    };
 
     const [todo, setTodo] = useState('');
     const [state, dispatch] = useReducer(reducer, {
@@ -52,7 +54,9 @@ function Productivity() {
         // total items to be used to calculate percentage below
         const totalItems = reducerTodos.length + reducercompletedTodos.length;
 
-        const pausedItemsArr = reducerTodos.filter((todo) => todo.status === 'paused');
+        const pausedItemsArr = reducerTodos.filter(
+            (todo) => todo.status === 'paused'
+        );
 
         const pausedItemsLength = pausedItemsArr.length;
         const completedTodosLength = reducercompletedTodos.length;
@@ -134,7 +138,8 @@ function Productivity() {
                 <ProgressBar
                     now={100}
                     className={
-                        reducercompletedTodos.length === 0 && reducerTodos.length === 0
+                        reducercompletedTodos.length === 0 &&
+                        reducerTodos.length === 0
                             ? 'progressBar hide'
                             : 'progressBar'
                     }
