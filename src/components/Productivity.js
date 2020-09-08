@@ -6,16 +6,19 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import useLocalStorage from './useLocalStorage';
 import reducer, { ACTIONS } from './reducer';
 
-function Productivity() {
-    const setLocalStorage = (item) => {
-        const storedItem = JSON.parse(localStorage.getItem(item));
-        if (storedItem && storedItem != null) {
-            return storedItem;
-        }
-        localStorage.setItem(item, JSON.stringify([]));
-        return [];
-    };
+/*
+check if item is stored in local storage and return it or return an empty array if it does not exist on local storage
+*/
+const setLocalStorage = (item) => {
+    const storedItem = JSON.parse(localStorage.getItem(item));
+    if (storedItem && storedItem != null) {
+        return storedItem;
+    }
+    localStorage.setItem(item, JSON.stringify([]));
+    return [];
+};
 
+const Productivity = () => {
     const [todo, setTodo] = useState('');
     const [state, dispatch] = useReducer(reducer, {
         reducerTodos: setLocalStorage('reducerTodos'),
@@ -27,16 +30,20 @@ function Productivity() {
 
     useEffect(() => {
         UpdateProgressBar();
-    }, []);
-
-    useEffect(() => {
-        UpdateProgressBar();
     }, [reducerTodos, reducercompletedTodos]);
 
+    /**
+     * takes in the input arg and updates the form
+     * @param {string} input 
+     */
     const updateInput = (input) => {
         setTodo(input);
     };
 
+    /**
+     * called when a user submits the form
+     * @param {formEvent} e 
+     */
     const formSubmitted = (e) => {
         e.preventDefault();
         let id = uuidv4();
@@ -50,6 +57,9 @@ function Productivity() {
         setTodo('');
     };
 
+    /**
+     * calculates the progress between the various todo states
+     */
     function UpdateProgressBar() {
         // total items to be used to calculate percentage below
         const totalItems = reducerTodos.length + reducercompletedTodos.length;
@@ -175,6 +185,6 @@ function Productivity() {
             </div>
         </div>
     );
-}
+};
 
 export default Productivity;

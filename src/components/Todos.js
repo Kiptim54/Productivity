@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FaPlay, FaPauseCircle } from 'react-icons/fa';
-import { MdDelete, MdReplay, MdDoneAll } from 'react-icons/md';
+import { MdDelete, MdDoneAll } from 'react-icons/md';
 import doneImage from '../done.svg';
 function Todos(props) {
     const {
@@ -12,7 +12,7 @@ function Todos(props) {
         unpauseTodos,
         updateTodo,
     } = props;
-    // console.log("todos delivered in the Todos.js", todos)
+    console.log('todos', todos);
     return (
         <div className="Todos">
             {todos.length >= 1 ? (
@@ -69,7 +69,13 @@ function Todos(props) {
                 </ul>
             ) : (
                 <div className="container">
-                    <img src={doneImage} alt="done" className="img-fluid m-auto" width="300px" style={{display:'block'}} />
+                    <img
+                        src={doneImage}
+                        alt="done"
+                        className="img-fluid m-auto"
+                        width="300px"
+                        style={{ display: 'block' }}
+                    />
 
                     <h4
                         style={{

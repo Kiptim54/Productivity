@@ -1,46 +1,43 @@
-import Todos from '../components/Todos';
 import React from 'react';
-import { render, screen, cleanup } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import '@testing-library/jest-dom';
 
+import Todos from '../components/Todos';
+import Productivity from '../components/Productivity';
 
+describe('testing the todo application', () => {
+    const deleteTodo = jest.fn();
+    const addCompleteTodo = jest.fn();
+    const pauseTodos = jest.fn();
+    const unpauseTodos = jest.fn();
+    const updateTodo = jest.fn();
 
-describe("all the test cases to be run in the todo component",()=>{
-    test('The file should output "No todos..." if nothing is passed to the todos props', () => {
-        expect.assertions(1);
-        const emptyTodos = [];
-        const { getByText } = render(
-            <Todos
-                todos={emptyTodos}
-                deleteTodo={() => null}
-                addCompleteTodo={() => null}
-                pauseTodos={() => null}
-                unpauseTodos={() => null}
-                updateTodo={() => null}
-            />
+    it('should display an svg when no todos exist', () => {
+        const { getByTestId, debug } = render(
+            <Todos deleteTodo todos={[]} addCompleteTodo />
         );
-    
-        expect(getByText('no pending items...')).toBeInTheDocument();
+
+        expect(getByTestId('todos-empty-container')).toBeInTheDocument();
     });
-    
-    test('The file should output todos if todos array is not empty', () => {
-        expect.assertions(1);
-        const TodosList = [
-            {
-                id: '7susjnsy99',
-                name: 'Run this one test in the todo component',
-                status: 'new',
-            },
+
+    it('should render items when todos has items in it', () => {
+        const todos = [
+            { id: 1, status: 'active', name: 'go for a walk' },
+            { id: 2, status: 'active', name: 'finish writing tests' },
         ];
-        const { getByText, queryByText } = render(
-            <Todos
-                addCompleteTodo={() => null}
-                deleteTodo={() => null}
-                todos={TodosList}
-            />
+        console.log(deleteTodo);
+        console.log(todos.length);
+        const { queryByTestId, debug } = render(
+            <Productivity>
+                <Todos
+                    todos={[{ id: 1, status: 'active', name: 'go for a walk' }]}
+                    deleteTodo={jest.fn()}
+                    addCompleteTodo={jest.fn()}
+                />
+            </Productivity>
         );
-        expect(queryByText('no pending items...')).not.toBeInTheDocument();
-    });
-})
 
+        debug();
+        // expect(queryByTestId('todos-empty-container')).toBeNull();
+    });
+});
