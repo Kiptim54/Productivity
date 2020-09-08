@@ -12,7 +12,6 @@ function Todos(props) {
         unpauseTodos,
         updateTodo,
     } = props;
-    console.log('todos', todos);
     return (
         <div className="Todos">
             {todos.length >= 1 ? (
@@ -61,6 +60,7 @@ function Todos(props) {
                                         className="delete-icon"
                                         color="#BD1919"
                                         size="25"
+                                        data-testid="deleteTodoIcon"
                                     />
                                 </span>
                             </div>

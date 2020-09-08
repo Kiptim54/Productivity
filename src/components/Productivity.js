@@ -34,7 +34,7 @@ const Productivity = () => {
 
     /**
      * takes in the input arg and updates the form
-     * @param {string} input 
+     * @param {string} input
      */
     const updateInput = (input) => {
         setTodo(input);
@@ -42,7 +42,7 @@ const Productivity = () => {
 
     /**
      * called when a user submits the form
-     * @param {formEvent} e 
+     * @param {formEvent} e
      */
     const formSubmitted = (e) => {
         e.preventDefault();
@@ -140,8 +140,11 @@ const Productivity = () => {
                         onChange={(e) => updateInput(e.target.value)}
                         required
                         className="form-control col-md-5 m-2"
+                        data-testid="todo-input"
                     />
-                    <button className="btn col-md-2 m-2">Enter</button>
+                    <button className="btn col-md-2 m-2" type="submit">
+                        Enter
+                    </button>
                 </form>
             </div>
             <div className="col-md-12">
